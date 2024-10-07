@@ -53,14 +53,13 @@ model = dict(
     type='MapTR',
     use_grid_mask=True,
     video_test_mode=False,
-    pretrained=dict(img='ckpts/resnet18-f37072fd.pth'),
     img_backbone=dict(
         type='ResNet',
         depth=18,
         num_stages=4,
         out_indices=(3,),
         frozen_stages=-1,
-        norm_cfg=dict(type='SyncBN', requires_grad=True),
+        norm_cfg=dict(type='BN', requires_grad=True),
         norm_eval=False,
         style='pytorch'),
     img_neck=dict(
@@ -85,7 +84,7 @@ model = dict(
         gt_shift_pts_pattern='v2',
         num_classes=num_map_classes,
         in_channels=_dim_,
-        sync_cls_avg_factor=True,
+        sync_cls_avg_factor=False,
         with_box_refine=True,
         as_two_stage=False,
         code_size=2,
@@ -274,8 +273,8 @@ data = dict(
               padding_value=-10000,
               map_classes=map_classes,
               classes=class_names, modality=input_modality),
-    shuffler_sampler=dict(type='DistributedGroupSampler'),
-    nonshuffler_sampler=dict(type='DistributedSampler')
+    shuffler_sampler=dict(type='GroupSampler'),
+    nonshuffler_sampler=dict(type='Sampler')
 )
 
 optimizer = dict(

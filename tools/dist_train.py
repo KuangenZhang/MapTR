@@ -44,14 +44,12 @@ def parse_args():
     group_gpus.add_argument(
         '--gpus',
         type=int,
-        default=0,
         help='number of gpus to use '
         '(only applicable to non-distributed training)')
     group_gpus.add_argument(
         '--gpu-ids',
         type=int,
         nargs='+',
-        default=[0],
         help='ids of gpus to use '
         '(only applicable to non-distributed training)')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
@@ -203,7 +201,7 @@ def main():
 
     # log some basic info
     logger.info(f'Distributed training: {distributed}')
-    # logger.info(f'Config:\n{cfg.pretty_text}')
+    logger.info(f'Config:\n{cfg.pretty_text}')
 
     # set random seeds
     if args.seed is not None:
@@ -220,7 +218,7 @@ def main():
         test_cfg=cfg.get('test_cfg'))
     model.init_weights()
 
-    # logger.info(f'Model:\n{model}')
+    logger.info(f'Model:\n{model}')
     datasets = [build_dataset(cfg.data.train)]
     if len(cfg.workflow) == 2:
         val_dataset = copy.deepcopy(cfg.data.val)

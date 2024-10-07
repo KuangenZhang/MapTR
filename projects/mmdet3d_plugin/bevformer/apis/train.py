@@ -24,6 +24,7 @@ def custom_train_model(model,
     if cfg.model.type in ['EncoderDecoder3D']:
         assert False
     else:
+        print("distributed: ", distributed)
         custom_train_detector(
             model,
             dataset,
