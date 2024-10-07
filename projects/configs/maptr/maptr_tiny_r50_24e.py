@@ -229,8 +229,8 @@ test_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=4,
-    workers_per_gpu=4,
+    samples_per_gpu=2,
+    workers_per_gpu=0,
     train=dict(
         type=dataset_type,
         data_root=data_root,
@@ -293,10 +293,10 @@ lr_config = dict(
     warmup_iters=500,
     warmup_ratio=1.0 / 3,
     min_lr_ratio=1e-3)
-total_epochs = 24
+total_epochs = 110
 # total_epochs = 50
 # evaluation = dict(interval=1, pipeline=test_pipeline)
-evaluation = dict(interval=2, pipeline=test_pipeline, metric='chamfer')
+evaluation = dict(interval=1000, pipeline=test_pipeline, metric='chamfer')
 
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 
