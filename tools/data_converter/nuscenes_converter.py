@@ -314,8 +314,10 @@ def _fill_trainval_infos(nusc,
 
         if sample['scene_token'] in train_scenes:
             train_nusc_infos.append(info)
-        else:
             val_nusc_infos.append(info)
+        
+        if len(train_nusc_infos) >= 2:
+            break
 
     return train_nusc_infos, val_nusc_infos
 
@@ -409,6 +411,7 @@ def export_2d_annotation(root_path, info_path, version, mono3d=True):
     ]
     coco_ann_id = 0
     coco_2d_dict = dict(annotations=[], images=[], categories=cat2Ids)
+    print(version, f"nusc_infos: {len(nusc_infos)}")
     for info in mmcv.track_iter_progress(nusc_infos):
         for cam in camera_types:
             cam_info = info['cams'][cam]

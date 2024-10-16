@@ -149,7 +149,7 @@ def format_res_gt_by_classes(result_path,
     print('results path: {}'.format(result_path))
 
     output_dir = osp.join(*osp.split(result_path)[:-1])
-    assert len(gen_results) == len(annotations)
+    assert len(gen_results) == len(annotations), f"gen_results: {len(gen_results)} != annotations: {len(annotations)}"
 
     pool = Pool(nproc)
     cls_gens, cls_gts = {}, {}
