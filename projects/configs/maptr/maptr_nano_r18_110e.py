@@ -1,3 +1,5 @@
+pretrained=dict(img='ckpts/resnet18-f37072fd.pth'),
+
 _base_ = [
     '../datasets/custom_nus-3d.py',
     '../_base_/default_runtime.py'
@@ -60,7 +62,7 @@ model = dict(
         num_stages=4,
         out_indices=(3,),
         frozen_stages=-1,
-        norm_cfg=dict(type='SyncBN', requires_grad=True),
+        norm_cfg=dict(type='BN', requires_grad=True),
         norm_eval=False,
         style='pytorch'),
     img_neck=dict(
@@ -231,7 +233,7 @@ test_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=24,
+    samples_per_gpu=8,
     workers_per_gpu=4,
     train=dict(
         type=dataset_type,
@@ -295,7 +297,7 @@ lr_config = dict(
     warmup_iters=500,
     warmup_ratio=1.0 / 3,
     min_lr_ratio=1e-3)
-total_epochs = 110
+total_epochs = 100
 # total_epochs = 50
 # evaluation = dict(interval=1, pipeline=test_pipeline)
 evaluation = dict(interval=2, pipeline=test_pipeline, metric='chamfer')
