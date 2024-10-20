@@ -1,5 +1,3 @@
-pretrained=dict(img='ckpts/resnet18-f37072fd.pth'),
-
 _base_ = [
     '../datasets/custom_nus-3d.py',
     '../_base_/default_runtime.py'
