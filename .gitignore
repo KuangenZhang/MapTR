@@ -1,3 +1,4 @@
+vis_dirs/**
 .vscode/**
 /*.sh
 change_submit.py
